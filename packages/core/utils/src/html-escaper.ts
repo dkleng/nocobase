@@ -13,8 +13,6 @@
  * 不影响用户输入和存储
  */
 
-import { Pattern } from '@formily/path';
-
 /**
  * 转义HTML内容，防止XSS攻击
  * 这是最安全的方法，因为所有HTML标签都会被转义
@@ -75,7 +73,7 @@ function escapeDangerousTags(input: string): string {
     { pattern: /(\s*)on(\w+\s*)=(\s*["'][^"']*["'])/gi, replacement: '$1on$2&#61;$3' },
     { pattern: /javascript:/gi, replacement: 'javascript&#58;' },
   ];
-  //      { pattern: /{{([^}]*)}}/gi,                         replacement: '&lbrace;&lbrace;$1&rbrace;&rbrace;' },
+  //      { pattern: /{{([^}]*)}}/gi,                         replacement: '&lbrace;&lbrace;$1&rbrace;&rbrace;' };
 
   patterns.forEach(({ pattern, replacement }) => {
     escaped = escaped.replace(pattern, replacement);

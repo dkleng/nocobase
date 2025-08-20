@@ -13,7 +13,7 @@ import { lazy } from '../../../lazy-helper';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { Input, ReadPretty as InputReadPretty } from '../input';
 import { useStyles } from './style';
-import { safeRenderHTML } from '../../../utils/html-escaper';
+import { safeRenderHTML } from '@nocobase/utils/client';
 
 const ReactQuill = lazy(() => import('react-quill'));
 

@@ -29,7 +29,7 @@ import { MarkdownVoidDesigner } from './Markdown.Void.Designer';
 import { registerQrcodeWebComponent } from './qrcode-webcom';
 import { useStyles } from './style';
 import { parseMarkdown } from './util';
-import { safeRenderHTML } from '../../../utils/html-escaper';
+import { safeRenderHTML } from '@nocobase/utils/client';
 
 export interface MarkdownEditorProps extends Omit<TextAreaProps, 'onSubmit'> {
   scope: any[];

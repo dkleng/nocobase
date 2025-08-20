@@ -18,7 +18,7 @@ import { withPopupWrapper } from '../../common/withPopupWrapper';
 import { useCompile } from '../../hooks';
 import { EllipsisWithTooltip } from './EllipsisWithTooltip';
 import { HTMLEncode } from './shared';
-import { safeRenderHTML } from '../../../utils/html-escaper';
+import { safeRenderHTML } from '@nocobase/utils/client';
 
 export type InputReadPrettyComposed = {
   Input: React.FC<InputReadPrettyProps>;

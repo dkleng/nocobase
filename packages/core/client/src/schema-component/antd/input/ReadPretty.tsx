@@ -18,6 +18,7 @@ import { withPopupWrapper } from '../../common/withPopupWrapper';
 import { useCompile } from '../../hooks';
 import { EllipsisWithTooltip } from './EllipsisWithTooltip';
 import { HTMLEncode } from './shared';
+import { safeRenderHTML } from '../../../utils/html-escaper';
 
 export type InputReadPrettyComposed = {
   Input: React.FC<InputReadPrettyProps>;
@@ -165,7 +166,7 @@ ReadPretty.Html = (props) => {
       <div
         style={lineHeight142}
         dangerouslySetInnerHTML={{
-          __html: value,
+          __html: safeRenderHTML(value, true), // 考虑使用转义后的安全内容
         }}
       />
     );

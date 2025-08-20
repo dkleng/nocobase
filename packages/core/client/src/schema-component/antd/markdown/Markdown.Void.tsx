@@ -29,6 +29,7 @@ import { MarkdownVoidDesigner } from './Markdown.Void.Designer';
 import { registerQrcodeWebComponent } from './qrcode-webcom';
 import { useStyles } from './style';
 import { parseMarkdown } from './util';
+import { safeRenderHTML } from '../../../utils/html-escaper';
 
 export interface MarkdownEditorProps extends Omit<TextAreaProps, 'onSubmit'> {
   scope: any[];
@@ -203,7 +204,9 @@ export const MarkdownVoidInner: any = withDynamicSchemaProps(
       <div
         className={cls([componentCls, hashId, 'nb-markdown nb-markdown-default nb-markdown-table', className])}
         style={{ ...props.style, height: height || '100%', overflowY: height ? 'auto' : 'null' }}
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{
+          __html: safeRenderHTML(html, true), // 使用转义后的安全内容
+        }}
       />
     );
   }),

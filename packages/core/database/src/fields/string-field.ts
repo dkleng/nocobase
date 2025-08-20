@@ -9,6 +9,7 @@
 
 import { DataTypes } from 'sequelize';
 import { BaseColumnFieldOptions, Field, FieldContext } from './field';
+import { safeRenderHTML } from '../../../client/src/utils/html-escaper';
 
 export class StringField extends Field {
   get dataType() {
@@ -34,7 +35,7 @@ export class StringField extends Field {
         if (typeof value !== 'string') {
           value = value.toString();
         }
-        this.setDataValue(name, trim ? value.trim() : value);
+        this.setDataValue(name, trim ? safeRenderHTML(value.trim(), true) : safeRenderHTML(value, true));
       },
     };
   }

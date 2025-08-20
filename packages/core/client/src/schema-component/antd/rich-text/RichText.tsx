@@ -13,6 +13,7 @@ import { lazy } from '../../../lazy-helper';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { Input, ReadPretty as InputReadPretty } from '../input';
 import { useStyles } from './style';
+import { safeRenderHTML } from '../../../utils/html-escaper';
 
 const ReactQuill = lazy(() => import('react-quill'));
 
@@ -37,12 +38,13 @@ export const RichText = connect(
     ];
     const { value, defaultValue, onChange, disabled, modules: propsModules, formats: propsFormats } = props;
     const resultValue = isVariable(value || defaultValue) ? undefined : value || '';
+    const safeValue = safeRenderHTML(resultValue, true);
     return wrapSSR(
       <ReactQuill
         className={`${componentCls} ${hashId}`}
         modules={propsModules || modules}
         formats={propsFormats || formats}
-        value={resultValue}
+        value={safeValue} // 使用安全渲染的值
         onChange={(value) => {
           if (value === '<p><br></p>') {
             onChange('');
@@ -58,6 +60,9 @@ export const RichText = connect(
     initialValue: 'defaultValue',
   }),
   mapReadPretty((props) => {
-    return <InputReadPretty.Html {...props} />;
+    // 只在只读显示时进行安全渲染
+    // 对于富文本，我们允许安全的HTML标签，但转义危险的标签
+    const safeValue = safeRenderHTML(props.value, true);
+    return <InputReadPretty.Html {...props} value={safeValue} />;
   }),
 );
